@@ -22,9 +22,6 @@ public class ejercicio1 {
             System.out.println("La clasificación es: -1");
         }
     }
-
-
-
 }
 
 

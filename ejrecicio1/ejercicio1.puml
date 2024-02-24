@@ -1,0 +1,12 @@
+@startuml
+package "ejrecicio1" {
+    class "ejercicio1" {
+        +{static} mayorDeDos(int, int) : void
+        +{static} clasificarNumeros(int, int) : void
+    }
+
+    class "main" {
+        +main(args : String[]) : void
+    }
+}
+@enduml
