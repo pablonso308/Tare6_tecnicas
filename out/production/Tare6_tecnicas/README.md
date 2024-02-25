@@ -1,0 +1,1 @@
+# Tare6_tecnicas

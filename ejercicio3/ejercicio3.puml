@@ -1,0 +1,8 @@
+@startuml
+class ejercicio3 {
+  -Random: random
+  +main(args: String[]): void
+  +crearTablaAleatoria(tamaño: int, mínimo: int, máximo: int): ArrayList<Integer>
+  +encontrarMayor(tabla: ArrayList<Integer>): int
+}
+@enduml
