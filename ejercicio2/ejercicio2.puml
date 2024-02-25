@@ -1,0 +1,10 @@
+@startuml
+class ejercicio2 {
+  -tablero: int[][]
+  +inicializarTablero(tablero: int[][]): void
+  +mostrarTablero(tablero: int[][]): void
+  +introducirEnteroEntreLimites(minimo: int, maximo: int): void
+  +disparar(tablero: int[][], fila: int, columna: int): boolean
+  +main(args: String[]): void
+}
+@enduml
