@@ -5,4 +5,5 @@ class ejercicio3 {
   +crearTablaAleatoria(tamaño: int, mínimo: int, máximo: int): ArrayList<Integer>
   +encontrarMayor(tabla: ArrayList<Integer>): int
 }
+
 @enduml

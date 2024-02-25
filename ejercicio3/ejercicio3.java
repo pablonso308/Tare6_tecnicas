@@ -2,6 +2,7 @@ package ejercicio3;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 public class ejercicio3 {
 
         public static void main(String[] args) {
