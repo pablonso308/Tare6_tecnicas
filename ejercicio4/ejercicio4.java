@@ -1,41 +1,59 @@
-
-
-import java.util.Random;
+import java.util.InputMismatchException;
 
 public class ejercicio4 {
+    private static final char OVEJA = 'O';
+    private static final char VACIO = ' ';
+    private static char[][] tablero;
+    private static final int TAMANO = 5; // Tamaño del tablero
 
+    public static void main(String[] args) {
+        tablero = crearTableroInicial();
 
-    public static void realizarMovimiento(int[][] tablero, int[] posicion) {
-        int currentX = posicion[0];
-        int currentY = posicion[1];
+        System.out.println("¡Bienvenido al Juego del Rebaño de Ovejas!");
 
+        mostrarTablero();
 
-        if (currentY + 1 < tablero[0].length && tablero[currentX][currentY + 1] == 0) {
+        while (!esConfiguracionFinal()) {
+            try {
+                // Simulación de movimientos automáticos
+                int filaInicial = obtenerAleatorio(0, TAMANO - 1);
+                int columnaInicial = obtenerAleatorio(0, TAMANO - 1);
+                int filaFinal = obtenerAleatorio(0, TAMANO - 1);
+                int columnaFinal = obtenerAleatorio(0, TAMANO - 1);
 
-            tablero[currentX][currentY] = 0;
-
-            tablero[currentX][currentY + 1] = 1;
-
-            posicion[1] = currentY + 1;
+                realizarMovimiento(filaInicial, columnaInicial, filaFinal, columnaFinal);
+                System.out.println("¡Movimiento exitoso!");
+                mostrarTablero();
+            } catch (MovimientoInvalidoException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Oops... ese movimiento no es válido. ¡Inténtalo de nuevo!");
+            }
         }
+
+        System.out.println("¡Felicidades! Has logrado alcanzar la configuración objetivo. Las ovejas te lo agradecen.");
     }
 
-
-    public static boolean esMovimientoVálido(int[][] tablero, int[] posicion) {
-        int currentX = posicion[0];
-        int currentY = posicion[1];
-
-        //confirmar si se puede mover la oveja
-
-        if (currentY + 1 < tablero[0].length && tablero[currentX][currentY + 1] == 0) {
-            return true;
+    private static char[][] crearTableroInicial() {
+        char[][] tablero = new char[TAMANO][TAMANO];
+        for (int i = 0; i < TAMANO; i++) {
+            for (int j = 0; j < TAMANO; j++) {
+                tablero[i][j] = VACIO;
+            }
         }
-        return false;
+        tablero[1][1] = OVEJA;
+        tablero[2][3] = OVEJA;
+        tablero[4][4] = OVEJA;
+        return tablero;
     }
 
-
-    private static void mostrarTablero(int[][] tablero) {
+    private static void mostrarTablero() {
+        System.out.print("  ");
         for (int i = 0; i < tablero.length; i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+        for (int i = 0; i < tablero.length; i++) {
+            System.out.print(i + " ");
             for (int j = 0; j < tablero[i].length; j++) {
                 System.out.print(tablero[i][j] + " ");
             }
@@ -43,64 +61,58 @@ public class ejercicio4 {
         }
     }
 
-   private static int[] obtenerMovimiento() {
-    int[] posicion = new int[2];
-    // Generar un número aleatorio entre 0 y 3
-    int direccion = new Random().nextInt(4);
-    switch (direccion) {
-        case 0:
-            // Mover hacia arriba
-            posicion[0] = -1;
-            posicion[1] = 0;
-            break;
-        case 1:
-            // Mover hacia abajo
-            posicion[0] = 1;
-            posicion[1] = 0;
-            break;
-        case 2:
-            // Mover hacia la izquierda
-            posicion[0] = 0;
-            posicion[1] = -1;
-            break;
-        case 3:
-            // Mover hacia la derecha
-            posicion[0] = 0;
-            posicion[1] = 1;
-            break;
-    }
-    return posicion;
-}
-
-   private static boolean esConfiguraciónFinal(int[][] tablero) {
-    for (int i = 0; i < tablero.length; i++) {
-        for (int j = 0; j < tablero[i].length; j++) {
-            if (tablero[i][j] == 0) {
-                return false;
-            }
+    private static void realizarMovimiento(int filaInicial, int columnaInicial, int filaFinal, int columnaFinal) throws MovimientoInvalidoException {
+        if (!esMovimientoValido(filaInicial, columnaInicial, filaFinal, columnaFinal)) {
+            throw new MovimientoInvalidoException("El movimiento es inválido.");
         }
+        tablero[filaFinal][columnaFinal] = OVEJA;
+        tablero[filaInicial][columnaInicial] = VACIO;
     }
-    return true; // Si todas las celdas están ocupadas (1), la configuración es final
-}
 
+    private static boolean esMovimientoValido(int filaInicial, int columnaInicial, int filaFinal, int columnaFinal) {
+        return filaInicial >= 0 && filaInicial < TAMANO &&
+                columnaInicial >= 0 && columnaInicial < TAMANO &&
+                filaFinal >= 0 && filaFinal < TAMANO &&
+                columnaFinal >= 0 && columnaFinal < TAMANO &&
+                tablero[filaInicial][columnaInicial] == OVEJA &&
+                tablero[filaFinal][columnaFinal] == VACIO;
+    }
 
-
-        public static void main(String[] args) {
-            // algoritmo principal
-            int[][] tablero = new int[5][5];
-            int[] posicion;
-            tablero[0][0] = 1;
-            while (!esConfiguraciónFinal(tablero)) {
-                mostrarTablero(tablero);
-                posicion = obtenerMovimiento();
-                if (esMovimientoVálido(tablero, posicion)) {
-                    realizarMovimiento(tablero, posicion);
+    private static boolean esConfiguracionFinal() {
+        int contadorOvejas = 0;
+        for (int i = 0; i < TAMANO; i++) {
+            for (int j = 0; j < TAMANO; j++) {
+                if (tablero[i][j] == OVEJA) {
+                    contadorOvejas++;
                 }
             }
-            System.out.println("¡Objetivo alcanzado!");
         }
+        return contadorOvejas > 0 && contadorOvejas == contarOvejasConectadas(0, 0, new boolean[TAMANO][TAMANO]);
     }
 
+    private static int contarOvejasConectadas(int fila, int columna, boolean[][] visitado) {
+        if (fila < 0 || fila >= TAMANO || columna < 0 || columna >= TAMANO || visitado[fila][columna] || tablero[fila][columna] != OVEJA) {
+            return 0;
+        }
 
+        visitado[fila][columna] = true;
+        int cuenta = 1;
 
+        cuenta += contarOvejasConectadas(fila + 1, columna, visitado);
+        cuenta += contarOvejasConectadas(fila - 1, columna, visitado);
+        cuenta += contarOvejasConectadas(fila, columna + 1, visitado);
+        cuenta += contarOvejasConectadas(fila, columna - 1, visitado);
 
+        return cuenta;
+    }
+
+    private static int obtenerAleatorio(int min, int max) {
+        return (int) (Math.random() * (max - min + 1) + min);
+    }
+}
+
+class MovimientoInvalidoException extends Exception {
+    public MovimientoInvalidoException(String mensaje) {
+        super(mensaje);
+    }
+}
