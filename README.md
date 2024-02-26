@@ -1,5 +1,5 @@
 # Tare6_tecnicas
-link a mi repositorio: 
+link a mi repositorio:https://github.com/pablonso308/Tare6_tecnicas.git 
 
 ENUNCIADO
 Desarrollar dos funciones para comparar números reales. La primera función devuelve el mayor de dos números, y la segunda clasifica los números retornando 0 si son iguales, 1 si el primero es mayor, y -1 en caso contrario. Implementar un algoritmo principal que utilice estas funciones. 
