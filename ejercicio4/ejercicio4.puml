@@ -1,0 +1,12 @@
+@startuml
+class ejercicio4 {
+  -Random: java.util.Random
+  +inicializarTablero(tablero: int[][]): void
+  +realizarMovimiento(tablero: int[][], posicion: int[]): void
+  +esMovimientoVálido(tablero: int[][], posicion: int[]): boolean
+  -mostrarTablero(tablero: int[][]): void
+  -obtenerMovimiento(): int[]
+  -esConfiguraciónFinal(tablero: int[][]): boolean
+  +main(args: String[]): void
+}
+@enduml

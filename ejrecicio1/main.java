@@ -1,4 +1,4 @@
-package ejrecicio1;
+
 
 import java.util.Scanner;
 

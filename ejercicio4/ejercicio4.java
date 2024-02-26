@@ -1,61 +1,105 @@
-package ejercicio4;
+
+
+import java.util.Random;
 
 public class ejercicio4 {
 
-    public static void main(String[] args) {
-        int[][] tablero = new int[10][10];
-        int[] posicionActual = {3, 5};
-        int[] nuevaPosicion = {3, 6};
 
-        //crear barco
-        tablero[posicionActual[0]][posicionActual[1]] = 1;
+    public static void realizarMovimiento(int[][] tablero, int[] posicion) {
+        int currentX = posicion[0];
+        int currentY = posicion[1];
 
-        //crear instancia de la clase Barco
-        Barco barco = new Barco();
 
-        //realizar movimiento
-        barco.realizarMovimiento(tablero, posicionActual, nuevaPosicion);
+        if (currentY + 1 < tablero[0].length && tablero[currentX][currentY + 1] == 0) {
 
-        //imprimir tablero
+            tablero[currentX][currentY] = 0;
+
+            tablero[currentX][currentY + 1] = 1;
+
+            posicion[1] = currentY + 1;
+        }
+    }
+
+
+    public static boolean esMovimientoVálido(int[][] tablero, int[] posicion) {
+        int currentX = posicion[0];
+        int currentY = posicion[1];
+
+        //confirmar si se puede mover la oveja
+
+        if (currentY + 1 < tablero[0].length && tablero[currentX][currentY + 1] == 0) {
+            return true;
+        }
+        return false;
+    }
+
+
+    private static void mostrarTablero(int[][] tablero) {
         for (int i = 0; i < tablero.length; i++) {
-            for (int j = 0; j < tablero[0].length; j++) {
+            for (int j = 0; j < tablero[i].length; j++) {
                 System.out.print(tablero[i][j] + " ");
             }
             System.out.println();
         }
     }
-    public void realizarMovimiento(int[][] tablero, int[] posicionActual, int[] nuevaPosicion) {
-        int filaActual = posicionActual[0];
-        int columnaActual = posicionActual[1];
-        int nuevaFila = nuevaPosicion[0];
-        int nuevaColumna = nuevaPosicion[1];
 
-        // confirmar que la nueva posición esté dentro del tablero
-        if (esMovimientoValido(tablero, nuevaPosicion)) {
-            //mover el barco
-            tablero[nuevaFila][nuevaColumna] = tablero[filaActual][columnaActual];
-            //limpiar posicion actual
-            tablero[filaActual][columnaActual] = 0;
-        } else {
-            System.out.println("Movimiento no válido");
-        }
+   private static int[] obtenerMovimiento() {
+    int[] posicion = new int[2];
+    // Generar un número aleatorio entre 0 y 3
+    int direccion = new Random().nextInt(4);
+    switch (direccion) {
+        case 0:
+            // Mover hacia arriba
+            posicion[0] = -1;
+            posicion[1] = 0;
+            break;
+        case 1:
+            // Mover hacia abajo
+            posicion[0] = 1;
+            posicion[1] = 0;
+            break;
+        case 2:
+            // Mover hacia la izquierda
+            posicion[0] = 0;
+            posicion[1] = -1;
+            break;
+        case 3:
+            // Mover hacia la derecha
+            posicion[0] = 0;
+            posicion[1] = 1;
+            break;
     }
+    return posicion;
+}
 
-
-        public boolean esMovimientoValido ( int[][] tablero, int[] nuevaPosicion){
-            int nuevaFila = nuevaPosicion[0];
-            int nuevaColumna = nuevaPosicion[1];
-
-
-            //confirmar que la nueva posición esté dentro del tablero
-            if (nuevaFila >= 0 && nuevaFila < tablero.length && nuevaColumna >= 0 && nuevaColumna < tablero[0].length) {
-                return true;
-            } else {
+   private static boolean esConfiguraciónFinal(int[][] tablero) {
+    for (int i = 0; i < tablero.length; i++) {
+        for (int j = 0; j < tablero[i].length; j++) {
+            if (tablero[i][j] == 0) {
                 return false;
             }
         }
     }
+    return true; // Si todas las celdas están ocupadas (1), la configuración es final
+}
 
+
+
+        public static void main(String[] args) {
+            // algoritmo principal
+            int[][] tablero = new int[5][5];
+            int[] posicion;
+            tablero[0][0] = 1;
+            while (!esConfiguraciónFinal(tablero)) {
+                mostrarTablero(tablero);
+                posicion = obtenerMovimiento();
+                if (esMovimientoVálido(tablero, posicion)) {
+                    realizarMovimiento(tablero, posicion);
+                }
+            }
+            System.out.println("¡Objetivo alcanzado!");
+        }
+    }
 
 
 
