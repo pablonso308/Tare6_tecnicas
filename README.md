@@ -52,3 +52,8 @@ algoritmo principal:
     resultado = disparar(tablero, fila, columna)
     si resultado:
         imprimir("Tocado y hundido")
+
+
+RESOLUCION
+
+
