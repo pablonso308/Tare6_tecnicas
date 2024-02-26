@@ -23,9 +23,3 @@ public class ejercicio1 {
     }
 }
 
-
-//número1 = obtenerNúmero("Ingrese el primer número: ")
-//número2 = obtenerNúmero("Ingrese el segundo número: ")
-//mayor = mayorDeDos(número1, número2)
-//clasificación = clasificarNúmeros(número1, número2)
-//imprimir("El mayor es: ", mayor, " y la clasificación es: ", clasificación)
