@@ -141,4 +141,4 @@ opción = mostrarMenú()
 
 RESOLUCION
 
-para hacer este ejercicio he convertido el pseudocodigo q me dan en el enunciado al codigo de java y tambien he aplicado cosas de otro codigo de una practica anterior que tambien tratataba del arte ascii
+para hacer este ejercicio he convertido el pseudocodigo q me dan en el enunciado al codigo de java y tambien he aplicado cosas de otro codigo de una practica anterior que tambien tratataba del arte ascii.
