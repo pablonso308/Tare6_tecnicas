@@ -1,0 +1,12 @@
+@startuml
+class ejercicio5 {
+  +main(args: String[]): void
+  +dibujarCaracter(lienzo: int[][], posicion: int[], caracter: int): void
+  +dibujarRectangulo(lienzo: int[][], esquina1: int[], esquina2: int[], caracter: int): void
+  +cambiarColor(lienzo: int[][], posicion: int[], nuevoCaracter: int): void
+  +crearLienzo(): int[][]
+  +mostrarMenu(): int
+  +ejecutarAccion(lienzo: int[][], opcion: int): void
+  +mostrarLienzo(lienzo: int[][]): void
+}
+@enduml
